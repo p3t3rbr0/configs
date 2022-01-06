@@ -1,0 +1,12 @@
+check_hash = no
+directory = ~/Downloads
+session =
+session_save = yes
+min_peers = 1
+max_peers = 1000
+download_rate = 0
+upload_rate = 0
+use_udp_trackers = yes
+encoding_list = UTF-8
+port_range = 49164-49164
+schedule = low_diskspace,5,60,close_low_diskspace=100M

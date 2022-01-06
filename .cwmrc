@@ -1,0 +1,97 @@
+# Some user commands (applications)
+command gimp        gimp
+command emacs       emacs
+command urxvt       urxvt
+command geeqie      geeqie
+command tixati      tixati
+command discord     discord
+command firefox     firefox
+command zathura     zathura
+command deadbeef    deadbeef
+command linphone    linphone
+command telega      Telegram
+command tor         tor-browser
+command libreoffice libreoffice6.0
+command htop        "urxvt -e htop"
+command moc         "urxvt -e mocp -T transparent-background" 
+
+# Unmap keybinding
+unbind-key all
+
+# New map keybinding
+bind-key 4-p       menu-cmd
+bind-key 4-e       menu-exec
+bind-key 4-slash   menu-window
+bind-key 4-period  menu-ssh
+bind-key 4S-Return "urxvt -e tmux"
+bind-key 4-F1      "amixer set Master toggle"
+bind-key 4-F2      "amixer set Master 5.0%-"
+bind-key 4-F3      "amixer set Master 5.0%+"
+bind-key 4-F4      "amixer set Capture toggle"
+bind-key 4-F5      "/home/peter/ch_brightness.sh -10"
+bind-key 4-F6      "/home/peter/ch_brightness.sh +10"
+bind-key 4-F7      "/home/peter/ch_temperatures.sh -500"
+bind-key 4-F8      "/home/peter/ch_temperatures.sh +500"
+bind-key 4-f       window-fullscreen
+bind-key 4-h       window-hide
+bind-key 4S-d      window-delete
+bind-key 4-l       window-lower
+bind-key 4-r       window-raise
+bind-key 4-m       window-maximize
+bind-key 4S-r      restart
+bind-key 4S-q      quit
+bind-key 4-equal   window-vmaximize
+bind-key 4S-equal  window-hmaximize
+bind-key 4S-h 	   window-htile
+bind-key 4S-v 	   window-vtile
+bind-key 4-s       window-cycle
+bind-key 4S-s      window-rcycle
+
+# Keyboard supplement keys
+bind-key XF86Calculator "xcalc"
+bind-key 4-F12          "xlock -mode mountain"
+bind-key XF86Close      "xlock -mode mountain"
+bind-key XF86HomePage   "firefox"
+bind-key XF86MyComputer "thunar"
+
+## Window movement (standard bindings)
+bind-key 4-i window-move-up-big
+bind-key 4-k window-move-down-big
+bind-key 4-j window-move-left-big
+bind-key 4-l window-move-right-big
+
+# Window resize
+bind-key 4S-i window-resize-up-big
+bind-key 4S-k window-resize-down-big
+bind-key 4S-j window-resize-left-big
+bind-key 4S-l window-resize-right-big
+
+# Enable sticky mode
+sticky yes
+
+# Set groups
+bind-key 4-1  group-only-1
+bind-key 4-2  group-only-2
+bind-key 4-3  group-only-3
+bind-key 4-4  group-only-4
+bind-key 4-5  group-only-5
+bind-key 4-6  group-only-6
+bind-key 4S-1 window-movetogroup-1
+bind-key 4S-2 window-movetogroup-2
+bind-key 4S-3 window-movetogroup-3
+bind-key 4S-4 window-movetogroup-4
+bind-key 4S-5 window-movetogroup-5
+bind-key 4S-6 window-movetogroup-6
+
+# Colors and decorations
+fontname             "Iosevka:normal:size=13"
+borderwidth          4
+snapdist             2
+color activeborder   "#9fca56"
+color inactiveborder grey30
+
+# Menu colors
+color font    white
+color selfont black
+color menubg  black
+color menufg  "#9fca56"

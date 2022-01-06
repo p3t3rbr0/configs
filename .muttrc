@@ -1,0 +1,142 @@
+# --------------------------------------------------------------------------------
+# Charset
+# --------------------------------------------------------------------------------
+
+set charset = "utf-8"
+set send_charset = "utf-8"
+
+# --------------------------------------------------------------------------------
+# /Charset
+# --------------------------------------------------------------------------------
+
+
+
+# --------------------------------------------------------------------------------
+# Colors
+# --------------------------------------------------------------------------------
+
+# general ------------ foreground ---- background -----------------------------
+color error		color231	color212
+color indicator		color231	color241
+color markers		color210	default
+color message		default		default
+color normal		default		default
+color prompt		default	        default
+color search		color84		default
+color status 		color141	color236
+color tilde		color231	default
+color tree		color141	default
+
+# message index ------ foreground ---- background -----------------------------
+color index		color210	default 	~D # deleted messages
+color index		color84		default 	~F # flagged messages
+color index		color117	default 	~N # new messages
+color index		color212	default 	~Q # messages which have been replied to
+color index		color215	default 	~T # tagged messages
+color index		color141	default		~v # messages part of a collapsed thread
+
+# message headers ---- foreground ---- background -----------------------------
+color hdrdefault	color117	default
+color header		color231	default		^Subject:.*
+
+# message body ------- foreground ---- background -----------------------------
+color attachment	color228	default
+color body		color231	default		[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+               # email addresses
+color body		color228	default		(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+        # URLs
+color body		color231	default		(^|[[:space:]])\\*[^[:space:]]+\\*([[:space:]]|$) # *bold* text
+color body		color231	default		(^|[[:space:]])_[^[:space:]]+_([[:space:]]|$)     # _underlined_ text
+color body		color231	default		(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)     # /italic/ text
+color quoted		color61		default
+color quoted1		color117	default
+color quoted2		color84		default
+color quoted3		color215	default
+color quoted4		color212	default
+color signature		color212	default
+
+# --------------------------------------------------------------------------------
+# /Colors
+# --------------------------------------------------------------------------------
+
+
+
+# --------------------------------------------------------------------------------
+# Main
+# --------------------------------------------------------------------------------
+
+set use_from = yes
+set editor = `echo $EDITOR`
+set sort = threads
+set sort_aux = last-date-received
+
+# Confirmation skipping
+set fast_reply=yes        # when replying, don't prompt for address
+set include=yes           # include original text on reply?
+set forward_quote=yes     # include original text on forward?
+set delete=yes            # don't ask for delete confirmation
+
+# don't let your firewall kill your idle connection
+set imap_keepalive  = 900
+
+# do not copy sent mail
+set copy = no
+set move = no 
+
+# text/html and images support
+set mailcap_path=~/.mutt/mailcap
+auto_view text/x-vcard text/html text/enriched
+alternative_order text/plain text/enriched text/html
+
+# Main screen data format
+set index_format="%4C %Z [%{%d.%m.%Y}] %-24.24L | %s"
+
+# --------------------------------------------------------------------------------
+# /Main
+# --------------------------------------------------------------------------------
+
+
+
+# --------------------------------------------------------------------------------
+# Shortcuts
+# --------------------------------------------------------------------------------
+
+# shift+g = fetch new email
+bind index G imap-fetch-mail
+
+# Macros for switching accounts
+macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/peter.brovchenko.gmail.com<enter><change-folder>!<enter>'
+macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/peter.brovchenko.reg.ru<enter><change-folder>!<enter>'
+
+# --------------------------------------------------------------------------------
+# /Shortcuts
+# --------------------------------------------------------------------------------
+
+
+
+# --------------------------------------------------------------------------------
+# Accounts
+# --------------------------------------------------------------------------------
+
+# Gmail accounts
+folder-hook 'peter.brovchenko.gmail.com' 'source ~/.mutt/peter.brovchenko.gmail.com'
+
+# Default account
+source ~/.mutt/peter.brovchenko.gmail.com
+ 
+set smtp_authenticators = 'gssapi:login'
+
+# --------------------------------------------------------------------------------
+# /Accounts
+# --------------------------------------------------------------------------------
+
+
+
+# --------------------------------------------------------------------------------
+# Contacts
+# --------------------------------------------------------------------------------
+
+# Aliases contacts
+source ~/.mutt/contacts
+
+# --------------------------------------------------------------------------------
+# /Contacts
+# --------------------------------------------------------------------------------

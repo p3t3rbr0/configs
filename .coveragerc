@@ -1,0 +1,17 @@
+[report]
+exclude_lines =
+    pass
+    \.\.\.
+    def __str__
+    core_dispatcher
+    TYPE_CHECKING
+
+[run]
+branch = true
+omit =
+    src/tests/*,
+    src/project/*,
+    src/manage.py,
+
+[html]
+directory = coverage_report

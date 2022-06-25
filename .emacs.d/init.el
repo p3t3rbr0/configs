@@ -4,7 +4,7 @@
 ;;
 ;; Author: Peter Brovchenko <p.brovchenko@protonmail.com>
 ;; URL: https://github.com/ChaoticEvil/configs/tree/master/.emacs.d/init.el
-;; Version: 0.8.6
+;; Version: 0.8.7
 ;;
 ;;; Commentary:
 ;;
@@ -147,6 +147,9 @@
 ;; Remove trailing whitespace before save buffer
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+;; Disable debug messages
+(setq debug-on-error nil)
+
 ;;; ================================================================================
 ;;; /Common settings
 ;;; ================================================================================
@@ -184,7 +187,7 @@
   (cond
     ((font-exists-p "Iosevka")
      (set-face-attribute
-      'default nil :font "Iosevka:weight=Regular" :height 190)
+      'default nil :font "Iosevka:weight=Medium" :height 150)
      (setq-default line-spacing 0))))
 
 ;; Highlight current line
@@ -311,19 +314,14 @@
 (global-unset-key (kbd "C-M-r"))
 (global-set-key (kbd "C-M-r") 'revert-buffer)
 
-;; Goto line
-(global-unset-key (kbd "<f6>"))
-(global-set-key (kbd "<f6>") 'goto-line)
-
 ;; Change Meta for OS X
-(cond
-  ((string-equal system-type "darwin")
-   (progn
-     (setq mac-option-key-is-meta nil)
-     (setq mac-command-key-is-meta nil)
-     (setq mac-command-modifier 'meta)
-     (setq mac-option-modifier nil))))
-
+;; (cond
+;;   ((string-equal system-type "darwin")
+;;    (progn
+;;      (setq mac-option-key-is-meta nil)
+;;      (setq mac-command-key-is-meta nil)
+;;      (setq mac-command-modifier 'meta)
+;;      (setq mac-option-modifier nil))))
 
 ;; ;; Move page up
 ;; (global-unset-key (kbd "C-S-p"))
@@ -535,7 +533,7 @@
     :config (setq pomidor-sound-tick nil
                   pomidor-sound-tack nil
                   pomidor-sound-overwork nil
-	              pomidor-sound-break-over nil)
+                  pomidor-sound-break-over nil)
     :hook (pomidor-mode . (lambda ()
                             (display-line-numbers-mode nil)
                             (setq left-fringe-width 0 right-fringe-width 0)
@@ -576,12 +574,14 @@
     :config
     (add-hook 'after-init-hook #'global-flycheck-mode)
 
-    (setq flycheck-perl-include-path '("/usr/local/Cellar/perl/5.32.0/bin"
-                                       "/usr/local/Cellar/perl/5.32.0/lib/perl5"
-                                       "/Volumes/data/perl5"
-                                       "/Volumes/data/perl5/bin"
-                                       "/Volumes/data/perl5/lib/perl5"
-                                       "/Volumes/data/work/regru/srs"))
+    (setq flycheck-perl-include-path '("/usr/lib/perl5/5.36/"
+                                       "/usr/lib/perl5/5.36/core_perl"
+                                       "/usr/lib/perl5/5.36/site_perl"
+                                       "/usr/lib/perl5/5.36/vendor_perl"
+                                       "/home/peter/perl5"
+                                       "/home/peter/perl5/bin"
+                                       "/home/peter/perl5/lib/perl5"
+                                       "/home/peter/work/regru/srs/lib"))
     ;; Flycheck and perlcritic
     (flycheck-define-checker perl-perlcritic
       "A perl syntax checker using perlcritic. See URL `http://search.cpan.org/dist/Perl-Critic/bin/perlcritic'"
@@ -728,7 +728,9 @@
 (use-package company-plsense
     :ensure t
     :config
-    (add-to-list 'company-backends 'company-plsense))
+    (add-to-list 'company-backends 'company-plsense)
+    (add-hook 'perl-mode-hook 'company-mode)
+    (add-hook 'cperl-mode-hook 'company-mode))
 
 ;;
 ;; /Perl
@@ -795,50 +797,71 @@
 ;; Scala
 ;;
 
+;; Enable scala-mode for highlighting, indentation and motion commands
 (use-package scala-mode
-    :ensure t
     :interpreter
-    ("scala" . scala-mode)
-    :config
-    (setq scala-indent:use-javadoc-style t))
+  ("scala" . scala-mode))
 
+;; Enable sbt mode for executing sbt commands
 (use-package sbt-mode
-    :ensure t
     :commands sbt-start sbt-command
     :config
+    ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+    ;; allows using SPACE when in the minibuffer
     (substitute-key-definition
      'minibuffer-complete-word
      'self-insert-command
      minibuffer-local-completion-map)
-    (setq sbt:program-options '("-Dsbt.supershell=false")))
+    ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
+    (setq sbt:program-options '("-Dsbt.supershell=false"))
+    )
+
+;; Enable nice rendering of diagnostics like compile errors.
+(use-package flycheck
+    :init (global-flycheck-mode))
 
 (use-package lsp-mode
-    :ensure t
+    ;; Optional - enable lsp-mode automatically in scala files
     :hook  (scala-mode . lsp)
     (lsp-mode . lsp-lens-mode)
     :config
-    (setq lsp-prefer-flymake nil)
-    (add-hook 'scala-mode-hook #'lsp)
-    (setq lsp-print-performance t)
-    (setq company-backends '(company-capf))
-    )
+    ;; Uncomment following section if you would like to tune lsp-mode performance according to
+    ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
+    ;;       (setq gc-cons-threshold 100000000) ;; 100mb
+    ;;       (setq read-process-output-max (* 1024 1024)) ;; 1mb
+    ;;       (setq lsp-idle-delay 0.500)
+    ;;       (setq lsp-log-io nil)
+    ;;       (setq lsp-completion-provider :capf)
+    (setq lsp-prefer-flymake nil))
 
 ;; Add metals backend for lsp-mode
-(use-package lsp-metals
-    :ensure t
-    :config (setq lsp-metals-treeview-show-when-views-received t))
+(use-package lsp-metals)
 
-(use-package lsp-ui
-    :ensure t)
+;; Enable nice rendering of documentation on hover
+;;   Warning: on some systems this package can reduce your emacs responsiveness significally.
+;;   (See: https://emacs-lsp.github.io/lsp-mode/page/performance/)
+;;   In that case you have to not only disable this but also remove from the packages since
+;;   lsp-mode can activate it automatically.
+(use-package lsp-ui)
 
+;; Use company-capf as a completion provider.
+;;
+;; To Company-lsp users:
+;;   Company-lsp is no longer maintained and has been removed from MELPA.
+;;   Please migrate to company-capf.
+(use-package company
+    :hook (scala-mode . company-mode)
+    :config
+    (setq lsp-completion-provider :capf))
+
+;; Use the Debug Adapter Protocol for running tests and debugging
 (use-package posframe
-    :ensure t)
-
+    ;; Posframe is a pop-up tool that must be manually installed for dap-mode
+    )
 (use-package dap-mode
-    :ensure t
     :hook
-    (lsp-mode . dap-mode)
-    (lsp-mode . dap-ui-mode))
+  (lsp-mode . dap-mode)
+  (lsp-mode . dap-ui-mode))
 
 ;;
 ;; /Scala
@@ -847,16 +870,3 @@
 ;; ================================================================================
 ;; /Languages
 ;; ================================================================================
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(company-plsense lsp-ui lsp-metals lsp-mode sbt-mode scala-mode pyenv-mode elpy lua-mode js2-mode flycheck-irony company-irony irony org-bullets flycheck company-restclient restclient highlight-symbol expand-region crux pomidor yaml-mode markdown-mode web-mode magit rainbow-delimiters company yasnippet-snippets yasnippet nimbus-theme use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

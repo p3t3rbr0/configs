@@ -10,9 +10,12 @@ The author also hopes that this examples of configuration files will be useful t
 ## Depencences
 
 * Basic
+  * sx
+  * zsh
   * cwm
   * feh
   * moc
+  * fvwm
   * tmux
   * mutt
   * lynx
@@ -28,13 +31,13 @@ Make sure that these packages are installed on your system.
 For Debian-based distribution:
 
 ```shell
-$ apt-get install feh cwm moc tmux mutt lynx rxvt-unicode-256color emacs compton redshift
+$ apt-get install zsh sx fvwm feh cwm moc tmux mutt lynx rxvt-unicode-256color emacs compton redshift
 ```
 
 For Arch Linux
 
 ```shell
-$ pacman -Si feh cwm moc tmux mutt lynx rxvt-unicode emacs compton redshift
+$ pacman -Si zsh sx fvwm feh cwm moc tmux mutt lynx rxvt-unicode emacs compton redshift
 ```
 
 For MacOS
@@ -70,17 +73,16 @@ $ pip install jedi autopep8 flake8 ipython importmagic yapf isort black mypy
 $ cpan i Devel::PerlySense Perl::Critic Perl::Tidy Devel::Cover
 ```
 
-### Fonts
-
-* Anonymous Pro
-* Anonymous Pro Minus
-* Cascadia
-* Iosevka
-* FiraCode
-* ...
-
-
 ## History
+
+### v0.8.7 [2022-06-25]
+* Removed .sbt/
+* Added configs for FVWM (window manager)
+* Added confgis for sx (start an xorg server)
+* [fonts] Upgraded (all)
+* [emacs] Fixed perly_sense
+* [emacs] Fixed metals lsp server for Scala
+* [py3] Added configs for flake8, pydocstyle, isort, coverage, mypy
 
 ### v0.8.6 [2022-01-01]
 * Reaggregated fonts

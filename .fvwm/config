@@ -1,0 +1,231 @@
+DesktopSize 1x1
+DesktopName 0 Main
+DesktopName 1 Term
+DesktopName 2 Dev
+DesktopName 3 Web
+DesktopName 4 Msg
+DesktopName 5 Music
+DesktopName 6 Sound
+DesktopName 7 Other
+
+TitleStyle Centered
+Style * Font "xft:Iosevka:weight=Medium:size=12"
+
+Style URxvt PositionPlacement UnderMouse
+Style * FPClickToFocus, FPClickDecorToFocus, FPClickIconToFocus, MouseFocusClickRaises
+
+# Ширина границ окна
+Style * BorderWidth 10, HandleWidth 10
+
+# Иконка по умолчанию, цвета для неактивного окна
+# Style * Icon unknown1.xpm, Color lightgrey/dimgrey
+
+# Окна в стиле Motif
+Style * HintOverride, ResizeHintOverride
+
+# Вновь создаваемые окна распологаются с минимальным перекрытием
+Style * MinOverlapPlacement
+
+Style * ClickToFocus
+
+# Декорировать временные окна, игнорировать подсказки программ по поводу
+# расположения новых окон
+Style * DecorateTransient, NoPPosition
+
+AddButtonStyle 2 Active Vector 17 20x20@1 30x20@1 50x40@1 70x20@1 80x20@1 80x30@0 60x50@0 80x70@1 80x80@0 70x80@0 50x60@0 30x80@0 20x80@0 20x70@0 40x50@1 20x30@0 20x20@1
+AddButtonStyle 2 Inactive Vector 17 20x20@1 30x20@1 50x40@1 70x20@1 80x20@1 80x30@0 60x50@0 80x70@1 80x80@0 70x80@0 50x60@0 30x80@0 20x80@0 20x70@0 40x50@1 20x30@0 20x20@1
+
+# Menu
+
+## Root Menu on The Desktop
+DestroyMenu MenuFvwmRoot
+AddToMenu   MenuFvwmRoot "Root Menu" Title
++ "0. &URXvt" Exec exec urxvt
++ "1. &Emacs" Exec exec emacs
++ "2. &Firefox" Exec exec firefox
++ "" Nop
++ "0. &Mixer" Exec exec pavucontrol
++ "1. &DeadBeef" Exec exec deadbeef
++ "2. &Ardour" Exec exec ardour6
++ "" Nop
++ "0. &Telega" Exec exec telegram-desktop
++ "1. &Discord" Exec exec discord
++ "2. &Mattermost" Exec exec mattermost-desktop
++ "" Nop
++ "0. &Gimp" Exec exec gimp
++ "1. &Steam" Exec exec steam
++ "2. &Transmission" Exec exec transmission-gtk
++ "" Nop
++ " &REC" Exec exec simplescreenrecorder
++ " &Restart" Restart
++ " &Quit" Module FvwmScript FvwmScript-ConfirmQuit
+
+MenuStyle * MenuColorset 5, ActiveColorset 6, GreyedColorset 7, TitleColorset 8
+MenuStyle * Hilight3DOff, HilightBack, HilightTitleBack, SeparatorsLong
+MenuStyle * TrianglesSolid, TrianglesUseFore
+MenuStyle * ItemFormat "%|%3.1i%5.3l%5.3>%|"
+MenuStyle * Font "xft:Iosevka:weight=Medium:size=12"
+
+Style urxvt StartsOnPage 1 0 0
+Style mutt StartsOnPage 0 0 0
+Style emacs NoTitle, StartsOnPage 2 0 0
+Style firefox NoTitle, StartsOnPage 3 0 0
+Style mpv PositionPlacement 50-50w 50-50w, !Title
+
+Style *Discord* StartsOnPage 4 0 0
+Style *Telegram* StartsOnPage 4 0 0
+Style *Mattermost StartsOnPage 4 0 0
+
+Style *pavucontrol StartsOnPage 5 0 0
+Style *deadbeef StartsOnPage 5 0 0
+
+Style ardour6 StartsOnPage 6 0 0
+Style gimp StartsOnPage 7 0 0
+Style steam StartsOnPage 8 0 0
+
+# Inactive Windows
+Colorset 1  fg #000000, bg #A9B0B3
+# Inactive Windows Borders
+Colorset 3  fg #000000, bg #655643
+# Active Window
+Colorset 2  fg #000000, bg #80BCA3
+# Active Windows Borders
+Colorset 4  fg #000000, bg #E6AC27
+# Window Colorset Defaults
+Style "*" Colorset 1, HilightColorset 2, BorderColorset 3, HilightBorderColorset 4
+# Menu - Inactive Item
+Colorset 5  fg #000000, bg #A9B0B3
+# Menu - Active Item
+Colorset 6  fg #000000, bg #E6AC27
+# Menu - Grayed Item
+Colorset 7  fg #000000, bg #80BCA3
+# Menu - Title
+Colorset 8  fg #000000, bg #80BCA3
+
+Colorset 10  fg #000000, bg #BF4D28
+Colorset 11  fg #000000, bg #F6F7BD
+Colorset 12  fg #000000, bg #69D2E7
+
+Mouse 1 R A Nop
+Mouse 1 T M MoveOrMaximize
+Mouse 1 2 A Close
+Mouse 1 W M MoveOrMaximize
+Mouse 3 W 4 DragResize
+Mouse 3 R A Menu MenuFvwmRoot Nop
+
+Key p A 4 Exec rofi -show run -theme gruvbox-dark-hard -font "Iosevka 22"
+
+Key Return A 4S Exec urxvt
+Key q A 4 TileTopLeft
+Key q A 4S TileLeft
+Key e A 4 TileTopRight
+Key e A 4S TileRight
+Key a A 4 TileBottomLeft
+Key d A 4 TileBottomRight
+Key z A 4 TileTop
+Key c A 4 TileBottom
+
+Key k A 4 Close
+
+Key i A 4 Iconify
+Key i I 4 Iconify Off
+
+Key m W 4 Maximize
+
+Key 1 A 4 GotoDesk 0 0
+Key 2 A 4 GotoDesk 0 1
+Key 3 A 4 GotoDesk 0 2
+Key 4 A 4 GotoDesk 0 3
+Key 5 A 4 GotoDesk 0 4
+Key 6 A 4 GotoDesk 0 5
+Key 7 A 4 GotoDesk 0 6
+Key 8 A 4 GotoDesk 0 7
+
+Key 1 A 4S MoveToDesk 0 0
+Key 2 A 4S MoveToDesk 0 1
+Key 3 A 4S MoveToDesk 0 2
+Key 4 A 4S MoveToDesk 0 3
+Key 5 A 4S MoveToDesk 0 4
+Key 6 A 4S MoveToDesk 0 5
+Key 7 A 4S MoveToDesk 0 6
+Key 8 A 4S MoveToDesk 0 7
+
+Key s A 4 Next (AcceptsFocus Visible) Focus
+
+DestroyFunc RestartFunction
+AddToFunc   RestartFunction
++ I Nop
+
+DestroyFunc TileLeft
+AddToFunc TileLeft
++ I ThisWindow (!Shaded, !Iconic) Maximize 50 100
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move +0 +0
+
+DestroyFunc TileRight
+AddToFunc TileRight
++ I ThisWindow (!Shaded, !Iconic) Maximize 50 100
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move -0 +0
+
+DestroyFunc TileTop
+AddToFunc TileTop
++ I ThisWindow (!Shaded, !Iconic) Maximize 100 50
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move +0 +0
+
+DestroyFunc TileBottom
+AddToFunc TileBottom
++ I ThisWindow (!Shaded, !Iconic) Maximize 100 50
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move +0 -0
+
+DestroyFunc TileTopLeft
+AddToFunc TileTopLeft
++ I ThisWindow (!Shaded, !Iconic) Maximize 50 50
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move +0 +0
+
+DestroyFunc TileTopRight
+AddToFunc TileTopRight
++ I ThisWindow (!Shaded, !Iconic) Maximize 50 50
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move -0 +0
+
+DestroyFunc TileBottomLeft
+AddToFunc TileBottomLeft
++ I ThisWindow (!Shaded, !Iconic) Maximize 50 50
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move +0 -0
+
+DestroyFunc TileBottomRight
+AddToFunc TileBottomRight
++ I ThisWindow (!Shaded, !Iconic) Maximize 50 50
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move -0 -0
+
+AddToFunc InitFunction
++ I exec urxvt -e tmux
+
+# ======
+Style "FvwmButtons" !Borders, WindowListSkip, NeverFocus, NoTitle, StaysOnTop, StartsOnPage 0 0 0
+Module FvwmButtons -g 480x2160-0-0
+DestroyModuleConfig FvwmButtons: *
+*FvwmButtons: Columns 16
+*FvwmButtons: Font "xft:Iosevka:weight=Medium:size=12"
+*FvwmButtons: Colorset 5
+*FvwmButtons: Frame 2
+*FvwmButtons: Padding 0 0
+*FvwmButtons: Rows 99
+*FvwmButtons: (Left, Size 16x3, Swallow DateTime 'Module FvwmScript /home/peter/.fvwm/modules/DateTime', Frame 2)
+# *FvwmButtons: (Left, Size 16x3, Swallow FooBar 'Module FvwmScript /home/peter/.fvwm/scripts/FooBar', Frame 2)
+*FvwmButtons: (Title (Center) "VPS", Left, Colorset 2, Size 8x2, Action (Mouse 1) `Exec urxvt -e ssh -p 16622 peter@82.146.61.196 -t 'tmux attach-session -t peter'`)
+*FvwmButtons: (Title (Center) "[AGGTR]TS", Left, Colorset 4, Size 8x2, Action (Mouse 1) `Exec urxvt -e ssh peter.brovchenko@aggregator.int.reg.ru -t 'sudo tmux attach-session -t peter'`)
+*FvwmButtons: (Title (Center) "Screen Record", Left, Colorset 10, Size 16x2, Action (Mouse 1) `Exec simplescreenrecorder`)
+*FvwmButtons: (Size 16x1, Frame 0, Action (Mouse 1) `Nop`)
+*FvwmButtons: (Title (Center) "[Snd.S]: -2 dB", Left, Colorset 2, Size 8x2, Action (Mouse 1) `Exec amixer -q -c 1 -- sset Master 2-`)
+*FvwmButtons: (Title (Center) "[Snd.S]: +2 dB", Left, Colorset 4, Size 8x2, Action (Mouse 1) `Exec amixer -q -c 1 -- sset Master 2+`)
+*FvwmButtons: (Title (Center) "[Snd]: Mute", Left, Colorset 10, Size 16x2, Action (Mouse 1) `Exec amixer set Master toggle`)
+*FvwmButtons: (Title (Center) "[Snd.H]: -2 dB", Left, Colorset 2, Size 8x2, Action (Mouse 1) `Exec amixer -q -c 1 -- sset Master 2-`)
+*FvwmButtons: (Title (Center) "[Snd.H]: +2 dB", Left, Colorset 4, Size 8x2, Action (Mouse 1) `Exec amixer -q -c 1 -- sset Master 2+`)
+# *FvwmButtons: (Size 16x1, Frame 0, Action (Mouse 1) `Nop`)
+# *FvwmButtons: (16x16, Padding 0, Swallow "Calculator" `Exec /usr/bin/xcalc -geometry 320x100+100+0`)
+# *FvwmButtons: (16x24, Padding 0, Swallow "Calendar" `Exec /usr/bin/cal`)
+*FvwmButtons: (Size 16x38, Frame 0, Action (Mouse 1) `Nop`)
+*FvwmButtons: (Title (Center) "Restart", Left, Colorset 2, Size 8x2, Action (Mouse 1) Restart)
+*FvwmButtons: (Title (Center) "Quit", Left, Colorset 12, Size 8x2, Action (Mouse 1) Quit)
+*FvwmButtons: (Title (Center) "Lock", Left, Colorset 4, Size 16x2, Action (Mouse 1) `Exec xlock -mode mountain`)
+*FvwmButtons: (Title (Center) "Reboot", Left, Colorset 10, Size 8x2, Action (Mouse 1) `Exec sudo reboot`)
+*FvwmButtons: (Title (Center) "Halt", Left, Colorset 3, Size 8x2, Action (Mouse 1) `Exec sudo halt`)

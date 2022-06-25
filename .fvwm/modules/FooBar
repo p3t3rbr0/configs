@@ -1,0 +1,4 @@
+WindowTitle {FooBar}
+WindowSize  480 108
+Colorset 10
+Font "xft:Iosevka:weight=Bold:size=12"

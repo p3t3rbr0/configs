@@ -1,0 +1,10 @@
+xset -b
+xrandr --output DP-0 --mode 3840x2160 --rate 60
+
+xrdb ~/.Xdefaults
+setxkbmap -layout "us,ru" -option "grp:caps_toggle,grp_led:scroll,alt:leftaltismeta"
+
+feh --bg-scale ~/data/media/wallpapers/1.jpg
+picom -bCG
+
+exec fvwm

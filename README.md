@@ -70,10 +70,13 @@ $ pip install jedi autopep8 flake8 ipython importmagic yapf isort black mypy
 ### Perl
 
 ```shell
-$ cpan i Devel::PerlySense Perl::Critic Perl::Tidy Devel::Cover
+$ cpan i Perl::Critic Perl::Tidy Devel::Cover
 ```
 
 ## History
+
+### v0.8.8 [2022-12-08]
+* [emacs] Removed PerlySense (now only cperl mode)
 
 ### v0.8.7 [2022-06-25]
 * Removed .sbt/

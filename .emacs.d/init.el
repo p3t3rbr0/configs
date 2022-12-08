@@ -1,10 +1,10 @@
 ;;; init.el --- Peter's Emacs config file
 ;;
-;; Copyright (C) 2015-2021 by Peter Brovchenko <p.brovchenko@protonmail.com>
+;; Copyright (C) 2015-2022 by Peter Brovchenko <p.brovchenko@protonmail.com>
 ;;
 ;; Author: Peter Brovchenko <p.brovchenko@protonmail.com>
 ;; URL: https://github.com/ChaoticEvil/configs/tree/master/.emacs.d/init.el
-;; Version: 0.8.7
+;; Version: 0.8.8
 ;;
 ;;; Commentary:
 ;;
@@ -538,6 +538,7 @@
                             (display-line-numbers-mode nil)
                             (setq left-fringe-width 0 right-fringe-width 0)
                             (setq left-margin-width 2 right-margin-width 0)
+                            (setq pomidor-seconds (* 45 60))
                             (set-window-buffer nil (current-buffer)))))
 
 ;; Crux
@@ -712,25 +713,6 @@
           (lambda()
             (setq tab-width 4)
             (setq indent-tabs-mode nil)))
-
-;; PerlySense Config
-;; The PerlySense prefix key (unset only if needed, like for \C-o)
-(global-unset-key "\C-o")
-(setq ps/key-prefix "\C-o")
-(setq ps/load-flymake t)
-
-(setq ps/external-dir (shell-command-to-string "perly_sense external_dir"))
-(setq load-path (cons (expand-file-name (format "%s/%s" ps/external-dir "emacs"))
-                      load-path))
-(load "perly-sense")
-
-;; Autocompletion
-(use-package company-plsense
-    :ensure t
-    :config
-    (add-to-list 'company-backends 'company-plsense)
-    (add-hook 'perl-mode-hook 'company-mode)
-    (add-hook 'cperl-mode-hook 'company-mode))
 
 ;;
 ;; /Perl

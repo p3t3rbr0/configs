@@ -30,7 +30,7 @@ Style * ClickToFocus
 
 # Декорировать временные окна, игнорировать подсказки программ по поводу
 # расположения новых окон
-Style * DecorateTransient, NoPPosition
+Style * DecorateTransient, NoPPosition # !Borders
 
 AddButtonStyle 2 Active Vector 17 20x20@1 30x20@1 50x40@1 70x20@1 80x20@1 80x30@0 60x50@0 80x70@1 80x80@0 70x80@0 50x60@0 30x80@0 20x80@0 20x70@0 40x50@1 20x30@0 20x20@1
 AddButtonStyle 2 Inactive Vector 17 20x20@1 30x20@1 50x40@1 70x20@1 80x20@1 80x30@0 60x50@0 80x70@1 80x80@0 70x80@0 50x60@0 30x80@0 20x80@0 20x70@0 40x50@1 20x30@0 20x20@1
@@ -45,7 +45,7 @@ AddToMenu   MenuFvwmRoot "Root Menu" Title
 + "2. &Firefox" Exec exec firefox
 + "" Nop
 + "0. &Mixer" Exec exec pavucontrol
-+ "1. &DeadBeef" Exec exec deadbeef
++ "1. &Sonata" Exec exec sonata
 + "2. &Ardour" Exec exec ardour6
 + "" Nop
 + "0. &Telega" Exec exec telegram-desktop
@@ -77,7 +77,8 @@ Style *Telegram* StartsOnPage 4 0 0
 Style *Mattermost StartsOnPage 4 0 0
 
 Style *pavucontrol StartsOnPage 5 0 0
-Style *deadbeef StartsOnPage 5 0 0
+Style *sonata StartsOnPage 5 0 0
+Style *Transmission StartsOnPage 5 0 0
 
 Style ardour6 StartsOnPage 6 0 0
 Style gimp StartsOnPage 7 0 0

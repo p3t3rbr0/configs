@@ -6,7 +6,7 @@ Font "xft:Iosevka:weight=Bold:size=12"
 Init
  Begin
   Set $Time = (GetOutput {exec date "+%H:%M:%S"} 1 -1)
-  Set $Date = (GetOutput {exec date "+%a [%Y.%m.%d]"} 1 -1)
+  Set $Date = (GetOutput {exec date "+%a [%d.%m.%Y]"} 1 -1)
   ChangeTitle 1 $Time
   ChangeTitle 2 $Date
 End
@@ -16,7 +16,7 @@ PeriodicTasks
   If (RemainderOfDiv (GetTime) 1)==0 Then
   Begin
    Set $Time = (GetOutput {exec date "+%H:%M:%S"} 1 -1)
-   Set $Date = (GetOutput {exec date "+%a [%Y.%m.%d]"} 1 -1)
+   Set $Date = (GetOutput {exec date "+%a [%d.%m.%Y]"} 1 -1)
    ChangeTitle 1 $Time
    ChangeTitle 2 $Date
   End

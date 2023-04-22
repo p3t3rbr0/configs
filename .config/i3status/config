@@ -1,0 +1,32 @@
+general {
+    colors = true # включение/выключение поддержки цветов true/false
+    interval = 1 # интервал обновления строки статуса, в секундах
+    output_format = "i3bar" # формат вывода, устанавливаем i3bar (JSON)
+}
+
+order += "memory"
+# order += "wireless _first_"
+order += "volume master"
+order += "tztime local"
+
+wireless _first_ {
+        format_up = "W: (%quality at %essid, %bitrate) %ip |"
+        format_down = "W: down"
+}
+
+tztime local {
+        format = "%H:%M:%S [%Y-%m-%d]"
+}
+
+memory {
+        format = "RAM: %used/%total |"
+        threshold_degraded = "10%"
+        format_degraded = "MEMORY: %free"
+}
+
+volume master {
+    format = "SND: %volume |"
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
+}

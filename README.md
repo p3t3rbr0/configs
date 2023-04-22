@@ -75,6 +75,12 @@ $ cpan i Perl::Critic Perl::Tidy Devel::Cover
 
 ## History
 
+### v0.8.9 [2023-22-04]
+* [wm] Fixed fvwm config
+* [wm] Added i3wm and i3status configs
+* [fonts] Upgraded: Input, Iosevka, FiraCode, CascadiaCode
+* [fonts] Added SourceCodePro
+
 ### v0.8.8 [2022-12-08]
 * [emacs] Removed PerlySense (now only cperl mode)
 

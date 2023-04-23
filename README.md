@@ -11,6 +11,7 @@ The author also hopes that this examples of configuration files will be useful t
 
 * Basic
   * sx
+  * i3
   * zsh
   * cwm
   * feh
@@ -21,7 +22,7 @@ The author also hopes that this examples of configuration files will be useful t
   * lynx
   * urxvt
   * emacs
-  * compton
+  * picom
   * redshift
 * Optional
   * npm (for using eslint in Emacs)
@@ -31,13 +32,13 @@ Make sure that these packages are installed on your system.
 For Debian-based distribution:
 
 ```shell
-$ apt-get install zsh sx fvwm feh cwm moc tmux mutt lynx rxvt-unicode-256color emacs compton redshift
+$ apt-get install zsh sx i3-wm i3status feh moc tmux mutt lynx rxvt-unicode-256color emacs picom redshift
 ```
 
 For Arch Linux
 
 ```shell
-$ pacman -Si zsh sx fvwm feh cwm moc tmux mutt lynx rxvt-unicode emacs compton redshift
+$ pacman -Si zsh sx i3-wm i3status feh moc tmux mutt lynx rxvt-unicode emacs picom redshift
 ```
 
 For MacOS
@@ -75,7 +76,13 @@ $ cpan i Perl::Critic Perl::Tidy Devel::Cover
 
 ## History
 
-### v0.8.9 [2023-22-04]
+### v0.9.0 [2023-04-23]
+* Improved README
+* Improved .zshrc
+* Improved i3-wm and i3status config
+* Added scripts/{ch\_brightness.sh,ch\_temperatures.sh,start\_irony\_server.sh,slupgrade.pl}
+
+### v0.8.9 [2023-04-22]
 * [wm] Fixed fvwm config
 * [wm] Added i3wm and i3status configs
 * [fonts] Upgraded: Input, Iosevka, FiraCode, CascadiaCode

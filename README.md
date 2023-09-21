@@ -80,6 +80,7 @@ $ cpan i Perl::Critic Perl::Tidy Devel::Cover
 * [emacs] Improve cperl-mode checks
 * [emacs] Add explicit warning level
 * [emacs] Use httpS for [m]elpa repostories
+* [emacs] Remove elpy for python-mode
 * [fonts] Upgrade Iosevka fonts (to 27.0.1)
 * [mutt] Fix default account name
 * [macos] Add scripts: macos\_disable\_services.sh and macos\_remove\_apps.sh

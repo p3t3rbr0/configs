@@ -2,9 +2,9 @@
 ;;
 ;; Copyright (C) 2015-2023 by Peter Brovchenko <p.brovchenko@protonmail.com>
 ;;
-;; Author: Peter Brovchenko <p.brovchenko@protonmail.com>
-;; URL: https://github.com/ChaoticEvil/configs/tree/master/.emacs.d/init.el
-;; Version: 0.9.0
+;; Author: Peter Bro <p3t3rbr0@gmail.com>
+;; URL: https://github.com/p3t3rbr0/configs/blob/main/.emacs.d/init.el
+;; Version: 0.9.1
 ;;
 ;;; Commentary:
 ;;
@@ -15,6 +15,12 @@
 ;;; ================================================================================
 ;;; Common settings
 ;;; ================================================================================
+
+(setenv "LIBRARY_PATH"
+        "/usr/local/opt/gcc/lib/gcc/13:/usr/local/opt/libgccjit/lib/gcc/13:/usr/local/opt/gcc/lib/gcc/13/gcc/x86_64-apple-darwin22/13")
+
+;; Set warning level to "error" (default: warning)
+(setq warning-minimum-level :error)
 
 ;; Increase GC threshold to speed up startup.
 ;; Reset the GC threshold after initialization, and GC whenever we tab out.
@@ -187,7 +193,7 @@
   (cond
     ((font-exists-p "Iosevka")
      (set-face-attribute
-      'default nil :font "Iosevka:weight=Medium" :height 150)
+      'default nil :font "Iosevka:weight=Medium" :height 180)
      (setq-default line-spacing 0))))
 
 ;; Highlight current line
@@ -315,47 +321,13 @@
 (global-set-key (kbd "C-M-r") 'revert-buffer)
 
 ;; Change Meta for OS X
-;; (cond
-;;   ((string-equal system-type "darwin")
-;;    (progn
-;;      (setq mac-option-key-is-meta nil)
-;;      (setq mac-command-key-is-meta nil)
-;;      (setq mac-command-modifier 'meta)
-;;      (setq mac-option-modifier nil))))
-
-;; ;; Move page up
-;; (global-unset-key (kbd "C-S-p"))
-;; (global-set-key (kbd "C-S-p") 'scroll-down-command)
-
-;; ;; Move page down
-;; (global-unset-key (kbd "C-S-n"))
-;; (global-set-key (kbd "C-S-n") 'scroll-up-command)
-
-;; ;; Undo
-;; (global-unset-key (kbd "C-z"))
-;; (global-set-key (kbd "C-z") 'undo)
-
-;; ;; Redo
-;; (global-unset-key (kbd "C-Z"))
-;; (global-set-key (kbd "C-Z") 'undo-only)
-
-;; ;; Change Meta for OS X
-;; ;; (cond
-;; ;;   ((string-equal system-type "darwin")
-;; ;;    (progn
-;; ;;      (setq mac-option-key-is-meta nil)
-;; ;;      (setq mac-command-key-is-meta nil)
-;; ;;      (setq mac-command-modifier 'meta)
-;; ;;      (setq mac-option-modifier nil))))
-
-;; (cond
-;;   ((string-equal system-type "darwin")
-;;    (progn
-;;      (setq mac-option-key-is-meta nil)
-;;      (setq mac-command-key-is-meta nil)
-;;      (setq mac-command-modifier 'control)
-;;      (setq mac-option-modifier 'meta))))
-
+(cond
+  ((string-equal system-type "darwin")
+   (progn
+     (setq mac-option-key-is-meta nil)
+     (setq mac-command-key-is-meta nil)
+     (setq mac-command-modifier 'meta)
+     (setq mac-option-modifier nil))))
 
 ;;; ================================================================================
 ;;; /Shortcusts settings
@@ -430,8 +402,8 @@
 (setq package-enable-at-startup nil)
 ;; Add package sources.
 (unless (assoc-default "melpa" package-archives)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t))
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 
 ;; Run auto-load functions specified by package authors.
 (package-initialize)
@@ -574,55 +546,26 @@
     :ensure t
     :config
     (add-hook 'after-init-hook #'global-flycheck-mode)
-
-    (setq flycheck-perl-include-path '("/usr/lib/perl5/5.36/"
-                                       "/usr/lib/perl5/5.36/core_perl"
-                                       "/usr/lib/perl5/5.36/site_perl"
-                                       "/usr/lib/perl5/5.36/vendor_perl"
-                                       "/home/peter/perl5"
-                                       "/home/peter/perl5/bin"
-                                       "/home/peter/perl5/lib/perl5"
-                                       "/home/peter/work/regru/srs/lib"))
-    ;; Flycheck and perlcritic
-    (flycheck-define-checker perl-perlcritic
-      "A perl syntax checker using perlcritic. See URL `http://search.cpan.org/dist/Perl-Critic/bin/perlcritic'"
-      :command ("perlcritic" "-p" "/Volumes/data/peter/.perlcriticrc" source)
-      :error-patterns
-      ((error line ":" column ":" (any "5") ":" (message))
-       (warning line ":" column ":" (any "234") ":" (message))
-       (info line ":" column ":" (any "1") ":" (message)))
-      :modes (cperl-mode perl-mode)
-      :next-checkers (perl))
-
-    (flycheck-define-checker perl
-      "A Perl syntax checker using the Perl interpreter. See URL `http://www.perl.org'."
-      :command ("perl" "-w" "-c" source)
-      :error-patterns
-      ((error line-start (minimal-match (message))
-              " at " (file-name) " line " line
-              (or "." (and ", " (zero-or-more not-newline))) line-end))
-      :modes (perl-mode cperl-mode))
-
     (setq-default flycheck-highlighting-mode 'lines)
     ;; Define fringe indicator / warning levels
     (define-fringe-bitmap 'flycheck-fringe-bitmap-ball
         (vector #b00000000
-                #b00000000
-                #b00000000
-                #b00000000
-                #b00000000
-                #b00000000
-                #b00000000
-                #b00011100
-                #b00111110
-                #b00111110
-                #b00111110
-                #b00011100
-                #b00000000
-                #b00000000
-                #b00000000
-                #b00000000
-                #b00000000))
+         #b00000000
+         #b00000000
+         #b00000000
+         #b00000000
+         #b00000000
+         #b00000000
+         #b00011100
+         #b00111110
+         #b00111110
+         #b00111110
+         #b00011100
+         #b00000000
+         #b00000000
+         #b00000000
+         #b00000000
+         #b00000000))
     (flycheck-define-error-level 'error
       :severity 2
       :overlay-category 'flycheck-error-overlay
@@ -644,6 +587,21 @@
     :ensure t
     :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
+;; LanguageTool
+(use-package languagetool
+    :ensure t
+    :defer t
+    :commands (languagetool-check
+               languagetool-clear-suggestions
+               languagetool-correct-at-point
+               languagetool-correct-buffer
+               languagetool-set-language
+               languagetool-server-mode)
+    :config
+    (setq languagetool-java-arguments '("-Dfile.encoding=UTF-8")
+          languagetool-console-command "~/opt/languagetool/languagetool-commandline.jar")
+    :bind (("<f7>" . languagetool-check)
+           ("<f8>" . languagetool-correct-buffer)))
 ;;; ================================================================================
 ;;; /Third-party packages settings
 ;;; ================================================================================
@@ -714,6 +672,34 @@
             (setq tab-width 4)
             (setq indent-tabs-mode nil)))
 
+(setq flycheck-perl-include-path '("/usr/lib/perl5/5.36.1/"
+                                   "/usr/lib/perl5/5.36.1/core_perl"
+                                   "/usr/lib/perl5/5.36.1/site_perl"
+                                   "/usr/lib/perl5/5.36.1/vendor_perl"
+                                   "/usr/local/opt/perl/lib/perl5/5.36"
+                                   "~/perl5"
+                                   "~/perl5/bin"
+                                   "~/perl5/lib/perl5"))
+;; Flycheck and perlcritic
+(flycheck-define-checker perl-perlcritic
+  "A perl syntax checker using perlcritic. See URL `http://search.cpan.org/dist/Perl-Critic/bin/perlcritic'"
+  :command ("perlcritic" "-p" "~/.perlcriticrc" source)
+  :error-patterns
+  ((error line ":" column ":" (any "5") ":" (message))
+   (warning line ":" column ":" (any "234") ":" (message))
+   (info line ":" column ":" (any "1") ":" (message)))
+  :modes (cperl-mode perl-mode)
+  :next-checkers (perl))
+
+(flycheck-define-checker perl
+  "A Perl syntax checker using the Perl interpreter. See URL `http://www.perl.org'."
+  :command ("perl" "-w" "-c" source)
+  :error-patterns
+  ((error line-start (minimal-match (message))
+          " at " (file-name) " line " line
+          (or "." (and ", " (zero-or-more not-newline))) line-end))
+  :modes (perl-mode cperl-mode))
+
 ;;
 ;; /Perl
 ;; --------------------------------------------------------------------------------
@@ -754,21 +740,6 @@
 ;; --------------------------------------------------------------------------------
 ;; Python
 ;;
-
-(use-package elpy
-    :ensure t
-    :init
-    (elpy-enable)
-    :config
-    (setq python-shell-interpreter "ipython"
-          python-shell-interpreter-args "-i --simple-prompt")
-    (define-key python-mode-map (kbd "M-.") 'jedi:goto-definition)
-    (setq jedi:complete-on-dot t)
-    :hook
-    (add-hook 'python-mode-hook 'jedi:setup))
-
-(use-package pyenv-mode
-    :ensure t)
 
 ;;
 ;; /Python

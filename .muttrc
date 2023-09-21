@@ -79,7 +79,7 @@ set imap_keepalive  = 900
 
 # do not copy sent mail
 set copy = no
-set move = no 
+set move = no
 
 # text/html and images support
 set mailcap_path=~/.mutt/mailcap
@@ -103,8 +103,7 @@ set index_format="%4C %Z [%{%d.%m.%Y}] %-24.24L | %s"
 bind index G imap-fetch-mail
 
 # Macros for switching accounts
-macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/peter.brovchenko.gmail.com<enter><change-folder>!<enter>'
-macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/peter.brovchenko.reg.ru<enter><change-folder>!<enter>'
+macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/p3t3rbr0.gmail.com<enter><change-folder>!<enter>'
 
 # --------------------------------------------------------------------------------
 # /Shortcuts
@@ -117,11 +116,11 @@ macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/peter.brovchenko.r
 # --------------------------------------------------------------------------------
 
 # Gmail accounts
-folder-hook 'peter.brovchenko.gmail.com' 'source ~/.mutt/peter.brovchenko.gmail.com'
+folder-hook 'p3t3rbr0.gmail.com' 'source ~/.mutt/p3t3rbr0.gmail.com'
 
 # Default account
-source ~/.mutt/peter.brovchenko.gmail.com
- 
+source ~/.mutt/p3t3rbr0.gmail.com
+
 set smtp_authenticators = 'gssapi:login'
 
 # --------------------------------------------------------------------------------

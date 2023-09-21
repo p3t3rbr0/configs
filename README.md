@@ -76,6 +76,14 @@ $ cpan i Perl::Critic Perl::Tidy Devel::Cover
 
 ## History
 
+### v0.9.1 [2023-09-21]
+* [emacs] Improve cperl-mode checks
+* [emacs] Add explicit warning level
+* [emacs] Use httpS for [m]elpa repostories
+* [fonts] Upgrade Iosevka fonts (to 27.0.1)
+* [mutt] Fix default account name
+* [macos] Add scripts: macos\_disable\_services.sh and macos\_remove\_apps.sh
+
 ### v0.9.0 [2023-04-23]
 * Improved README
 * Improved .zshrc

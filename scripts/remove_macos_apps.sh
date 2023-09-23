@@ -1,6 +1,11 @@
 #!/bin/sh
+
 #
-# $ DISK=/dev/disk1s5 MNT=~/opt/mnt sudo ./remove_unused_apps.sh
+# Remove unused MacOS native applications.
+#
+# Usage: [MNT=<mount point>] [DISK=<block device filename>] ./remove_macos_apps.sh
+#
+# Example: MNT=~/my/mnt DISK=/dev/disk1s5 ./remove_macos_apps.sh
 #
 
 set -eu

@@ -3,7 +3,8 @@ exclude_lines =
     pass
     \.\.\.
     def __str__
-    core_dispatcher
+    def __repr__
+    def __getattr__
     TYPE_CHECKING
 
 [run]
@@ -12,6 +13,7 @@ omit =
     src/tests/*,
     src/project/*,
     src/manage.py,
+    */migrations/*
 
 [html]
 directory = coverage_report

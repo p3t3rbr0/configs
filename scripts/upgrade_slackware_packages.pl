@@ -1,5 +1,12 @@
 #!/usr/bin/perl
 
+#
+# Script for upgrade installed slackware packages,
+# using mirror repository for slackware64-current.
+#
+# Usage: ./upgrade_slackware_packages.pl
+#
+
 use utf8;
 use strict;
 use warnings;
@@ -61,7 +68,7 @@ print "Reading system packages info...\n";
 
 for (keys %$sys_packages) {
     my $sys_pkg = $sys_packages->{$_};
-    
+
     if (my $pkg = $packages->{$_}) {
         if ($pkg->{version} ne $sys_pkg->{version} || $pkg->{build} ne $sys_pkg->{build}) {
             $thq->enqueue($pkg);
@@ -81,7 +88,7 @@ sub _worker {
         print BOLD, WHITE, "$pkg->{name}...\n", RESET;
         _get($pkg->{url});
     }
-    
+
     return 0;
 }
 
@@ -90,7 +97,7 @@ sub get_pkg_info {
 
     my $pkg_split = [split /-/x, $pkg];
     my ($title, $version, $arch, $tag, $build) = ('', '', '', '', '');
-     
+
     if (scalar @$pkg_split == 6) {
         $title = join('-', ($pkg_split->[0], $pkg_split->[1], $pkg_split->[2]));
         $version = $pkg_split->[3];
@@ -183,10 +190,10 @@ sub _get {
     return 0 unless $url;
 
     $to //= '.';
-    
+
     my $ff = File::Fetch->new(uri => $url);
     $ff->fetch(to => $to);
-    
+
     croak("Fetching error: ".$ff->error) if ($ff->error);
 
     return 1;

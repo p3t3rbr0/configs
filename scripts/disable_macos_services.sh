@@ -1,5 +1,13 @@
 #!/bin/sh
 
+#
+# Disable redundant macos services (daemons and agents).
+#
+# Usage: [ID=<user id>] ./disable_macos_services.sh
+#
+# Example: ID=502 ./disable_macos_services.sh
+#
+
 set -eu
 
 ID=${ID:-501}

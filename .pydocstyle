@@ -1,4 +1,4 @@
 [pydocstyle]
 inherit = false
 convention = google
-match-dir = ^(?!tests|docs|project|configs).+$
+match-dir = ^(?!tests|project|migrations).+$

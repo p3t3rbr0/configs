@@ -167,7 +167,7 @@ for agent in $AGENTS; do
     launchctl disable gui/$ID/$agent || true
 done
  for daemon in $DAEMONS; do
-    echo "Disable daemon: $service ..."
-    sudo launchctl bootout system/$service || true
-    sudo launchctl disable system/$service || true
+    echo "Disable daemon: $daemon ..."
+    sudo launchctl bootout system/$daemon || true
+    sudo launchctl disable system/$daemon || true
 done

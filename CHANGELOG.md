@@ -1,5 +1,13 @@
 # ChangeLog
 
+## v0.9.3 [2023-12-17]
+* Cleanup .zshrc
+* Remove .icons/ directory
+* Fix name of script/change\_screen\_temperature.sh
+* Fix scripts/disable\_macos\_services.sh
+* [fonts] Upgrade Iosevka fonts (to 28.0.0)
+* [scala] Add configs: .scalafmt.conf and .scalafix.conf
+
 ## v0.9.2 [2023-09-23]
 * Update scripts (scripts/*)
 * Move History of versions to CHANGELOG.md

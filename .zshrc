@@ -39,7 +39,7 @@ zstyle ':completion:*' rehash true
 # Variables
 export LANG=en_US.UTF-8
 export LESS=eFRX
-export EDITOR="emacs -nw" # Default console editor
+export EDITOR="nano"
 export TERM=xterm-256color
 export COLORTERM=trueolor
 
@@ -79,13 +79,8 @@ alias dps="docker ps --format \"{{.Names}} ({{.ID}})\""
 
 # k8s
 alias kbs_pods="kubectl -n <namespace> get pod"
-alias kbs_pods_bhv="kubectl -n <namespace> get pod"
-
-alias kbs_staging_pods="kubectl --kubeconfig ~/.kube/staging_cfg -n <namespace> get pod"
-alias kbs_staging_pods_bhv="kubectl --kubeconfig ~/.kube/staging_cfg -n <namespace> get pod"
-
 alias kbs_deps="kubectl -n <namespace> get deployments"
-alias kbs_deps_bhv="kubectl -n <namespace> get deployments"
+# alias kbs_another_cluster_pods="kubectl --kubeconfig ~/.kube/staging_cfg -n <namespace> get pod"
 
 #
 # Functions
@@ -101,34 +96,11 @@ gkill(){
 kbs_logs(){
     kubectl -n <namespace> logs --tail=100 -f "$1"
 }
-kbs_logs_bhv(){
-    kubectl -n <namespace> logs --tail=100 -f "$1"
-}
-
-kbs_staging_logs(){
-    kubectl --kubeconfig ~/.kube/staging_cfg -n <namespace> logs --tail=100 -f "$1"
-}
-kbs_staging_logs_bhv(){
-    kubectl --kubeconfig ~/.kube/staging_cfg -n <namespace> logs --tail=100 -f "$1"
-}
 
 kbs_exec(){
     [ -z "$2" ] && kubectl -n <namespace> exec -ti "$1" -- "$2" || kubectl -n <namespace> exec -ti "$1" -- sh
 }
-kbs_exec_bhv(){
-    [ -z "$2" ] && kubectl -n <namespace> exec -ti "$1" -- "$2" || kubectl -n <namespace> exec -ti "$1" -- sh
-}
-
-kbs_staging_exec(){
-    [ -z "$2" ] && kubectl --kubeconfig ~/.kube/staging_cfg -n <namespace> exec -ti "$1" -- "$2" || kubectl --kubeconfig ~/.kube/staging_cfg -n <namespace> exec -ti "$1" -- sh
-}
-kbs_staging_exec_bhv(){
-    [ -z "$2" ] && kubectl --kubeconfig ~/.kube/staging_cfg -n <namespace> exec -ti "$1" -- "$2" || kubectl --kubeconfig ~/.kube/staging_cfg -n <namespace> exec -ti "$1" -- sh
-}
 
 kbs_desc(){
-    kubectl -n <namespace> describe pods "$1"
-}
-kbs_desc_bhv(){
     kubectl -n <namespace> describe pods "$1"
 }

@@ -1,5 +1,8 @@
 # ChangeLog
 
+## v0.9.4 [2024-02-01]
+* [fonts] Upgrade Iosevka fonts (to 28.0.5)
+
 ## v0.9.3 [2023-12-17]
 * Cleanup .zshrc
 * Remove .icons/ directory

@@ -1,5 +1,8 @@
 # ChangeLog
 
+<!-- ## v0.9.6 [2024-02-00] -->
+<!-- * ... -->
+
 ## v0.9.5 [2024-02-03]
 * [fonts] Upgrade Go fonts (to 2.010)
 * [fonts] Upgrade Iosevka fonts (to 28.0.7)

@@ -73,3 +73,13 @@ $ pip install ipython flake8 isort black mypy pydocstyle
 ```shell
 $ cpan i Perl::Critic Perl::Tidy Devel::Cover
 ```
+
+### Markdown
+
+``` shell
+$ apt-get install multimarkdown
+```
+
+``` shell
+$ brew install multimarkdown
+```

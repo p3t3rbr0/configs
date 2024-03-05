@@ -1,6 +1,9 @@
 
 # ChangeLog
 
+## v0.9.7 [2024-03-05]
+* [emacs] Fix python config section
+
 ## v0.9.6 [2024-02-23]
 * [fonts] Upgrade Iosevka fonts (to 28.1.0)
 

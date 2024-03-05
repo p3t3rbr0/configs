@@ -1,10 +1,10 @@
 ;;; init.el --- Peter's Emacs config file
 ;;
-;; Copyright (C) 2015-2023 by Peter Brovchenko <p.brovchenko@protonmail.com>
+;; Copyright (C) 2015-2024 by Peter Brovchenko <p.brovchenko@protonmail.com>
 ;;
 ;; Author: Peter Bro <p3t3rbr0@gmail.com>
 ;; URL: https://github.com/p3t3rbr0/configs/blob/main/.emacs.d/init.el
-;; Version: 0.9.1
+;; Version: 0.9.7
 ;;
 ;;; Commentary:
 ;;
@@ -15,9 +15,6 @@
 ;;; ================================================================================
 ;;; Common settings
 ;;; ================================================================================
-
-(setenv "LIBRARY_PATH"
-        "/usr/local/opt/gcc/lib/gcc/13:/usr/local/opt/libgccjit/lib/gcc/13:/usr/local/opt/gcc/lib/gcc/13/gcc/x86_64-apple-darwin22/13")
 
 ;; Set warning level to "error" (default: warning)
 (setq warning-minimum-level :error)
@@ -491,7 +488,9 @@
 
 ;; Markdowm
 (use-package markdown-mode
-    :mode "\\.md\\'")
+    :ensure t
+    :mode ("README\\.md\\'" . gfm-mode)
+    :init (setq markdown-command "/usr/local/bin/multimarkdown"))
 
 ;; YAML
 (use-package yaml-mode
@@ -672,11 +671,11 @@
             (setq tab-width 4)
             (setq indent-tabs-mode nil)))
 
-(setq flycheck-perl-include-path '("/usr/lib/perl5/5.36.1/"
-                                   "/usr/lib/perl5/5.36.1/core_perl"
-                                   "/usr/lib/perl5/5.36.1/site_perl"
-                                   "/usr/lib/perl5/5.36.1/vendor_perl"
-                                   "/usr/local/opt/perl/lib/perl5/5.36"
+(setq flycheck-perl-include-path '("/usr/lib/perl5/5.38/"
+                                   "/usr/lib/perl5/5.38/core_perl"
+                                   "/usr/lib/perl5/5.38/site_perl"
+                                   "/usr/lib/perl5/5.38/vendor_perl"
+                                   "/usr/local/opt/perl/lib/perl5/5.38"
                                    "~/perl5"
                                    "~/perl5/bin"
                                    "~/perl5/lib/perl5"))
@@ -740,6 +739,9 @@
 ;; --------------------------------------------------------------------------------
 ;; Python
 ;;
+
+(use-package pyenv-mode
+    :ensure t)
 
 ;;
 ;; /Python

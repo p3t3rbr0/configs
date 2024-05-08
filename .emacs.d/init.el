@@ -1,10 +1,10 @@
 ;;; init.el --- Peter's Emacs config file
 ;;
-;; Copyright (C) 2015-2024 by Peter Brovchenko <p.brovchenko@protonmail.com>
+;; Copyright (C) 2015-2024 by Peter Bro <p3t3rbr0@gmail.com>
 ;;
 ;; Author: Peter Bro <p3t3rbr0@gmail.com>
 ;; URL: https://github.com/p3t3rbr0/configs/blob/main/.emacs.d/init.el
-;; Version: 0.9.7
+;; Version: 0.9.8
 ;;
 ;;; Commentary:
 ;;
@@ -12,9 +12,7 @@
 ;;
 ;;; Code:
 
-;;; ================================================================================
-;;; Common settings
-;;; ================================================================================
+;;; --- Common settings ---
 
 ;; Set warning level to "error" (default: warning)
 (setq warning-minimum-level :error)
@@ -153,14 +151,7 @@
 ;; Disable debug messages
 (setq debug-on-error nil)
 
-;;; ================================================================================
-;;; /Common settings
-;;; ================================================================================
-
-
-;;; ================================================================================
-;;; Look and Feel settings
-;;; ================================================================================
+;;; --- Look and Feel settings ---
 
 (electric-pair-mode 1) ;; Autocompare scopes
 (show-paren-mode t)    ;; Enable highlight for scopes
@@ -196,14 +187,7 @@
 ;; Highlight current line
 (global-hl-line-mode nil)
 
-;;; ================================================================================
-;;; /Look and Feel settings
-;;; ================================================================================
-
-
-;;; ================================================================================
-;;; Shortcusts settings
-;;; ================================================================================
+;;; --- Shortcusts settings ---
 
 ;; Move cursor up
 (global-unset-key (kbd "M-i"))
@@ -257,9 +241,7 @@
 (global-unset-key (kbd "M-s"))
 (global-set-key (kbd "M-s") 'other-window)
 
-;;
-;; Editing
-;;
+;; --- Editing ---
 
 ;; Delete
 (global-unset-key (kbd "M-f"))
@@ -326,14 +308,7 @@
      (setq mac-command-modifier 'meta)
      (setq mac-option-modifier nil))))
 
-;;; ================================================================================
-;;; /Shortcusts settings
-;;; ================================================================================
-
-
-;;; ================================================================================
-;;; Biltin packages settings
-;;; ================================================================================
+;;; --- Biltin packages settings ---
 
 ;; IDO
 (require 'ido)
@@ -385,14 +360,7 @@
 (global-set-key (kbd "C-2") 'bookmark-jump)
 (global-set-key (kbd "C-3") 'bookmark-bmenu-list)
 
-;;; ================================================================================
-;;; /Biltin packages settings
-;;; ================================================================================
-
-
-;;; ================================================================================
-;;; Third-party packages settings
-;;; ================================================================================
+;;; --- Third-party packages settings ---
 
 (require 'package)
 ;; Explicitly enable packages.
@@ -415,7 +383,6 @@
 ;; Set theme (Nimbus)
 (use-package nimbus-theme
     :ensure t)
-
 (load-theme 'nimbus t)
 
 ;; Snippets system
@@ -601,76 +568,47 @@
           languagetool-console-command "~/opt/languagetool/languagetool-commandline.jar")
     :bind (("<f7>" . languagetool-check)
            ("<f8>" . languagetool-correct-buffer)))
-;;; ================================================================================
-;;; /Third-party packages settings
-;;; ================================================================================
 
-
-;; ================================================================================
-;; Languages
-;; ================================================================================
-
-;; --------------------------------------------------------------------------------
-;; C
-;;
-
-;; Set indention for C-mode
+;; --- C-lang settings ---
 (setq-default c-basic-offset 4)
-
 (use-package irony
     :ensure t
     :config
     (add-hook 'c-mode-hook 'irony-mode)
     (add-hook 'c++-mode-hook 'irony-mode)
     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
-
 (use-package company-irony
     :ensure t
     :config
     (require 'company)
     (add-to-list 'company-backends 'company-irony))
-
 (use-package flycheck-irony
     :ensure t
     :hook (flycheck-mode . flycheck-irony-setup))
 
-;;
-;; /C
-;; --------------------------------------------------------------------------------
-
-
-;; --------------------------------------------------------------------------------
-;; Perl
-;;
-
-;; Auto associate with cperl-mode
+;; --- Perl-lang settings ---
 (add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\|al\\|t\\)\\'" . cperl-mode))
 (add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
 (add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
 (add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
-
 (setq cperl-invalid-face nil)    ;; disable errors
 (setq cperl-electric-keywords t) ;; expands for keywords such as foreach, while, etc...
-
 ;; Autocomplete pairs
 (mapc
  (lambda (pair)
    (if (eq (cdr pair) 'perl-mode)
        (setcdr pair 'cperl-mode)))
  (append auto-mode-alist interpreter-mode-alist))
-
 ;; Indentation
 (setq cperl-indent-level 4
       cperl-close-paren-offset -4
       cperl-continued-statement-offset 4
       cperl-indent-parens-as-block t
       cperl-tab-always-indent t)
-
 (add-hook 'cperl-mode-hook
           (lambda()
             (setq tab-width 4)
             (setq indent-tabs-mode nil)))
-
 (setq flycheck-perl-include-path '("/usr/lib/perl5/5.38/"
                                    "/usr/lib/perl5/5.38/core_perl"
                                    "/usr/lib/perl5/5.38/site_perl"
@@ -689,7 +627,6 @@
    (info line ":" column ":" (any "1") ":" (message)))
   :modes (cperl-mode perl-mode)
   :next-checkers (perl))
-
 (flycheck-define-checker perl
   "A Perl syntax checker using the Perl interpreter. See URL `http://www.perl.org'."
   :command ("perl" "-w" "-c" source)
@@ -699,15 +636,7 @@
           (or "." (and ", " (zero-or-more not-newline))) line-end))
   :modes (perl-mode cperl-mode))
 
-;;
-;; /Perl
-;; --------------------------------------------------------------------------------
-
-
-;; --------------------------------------------------------------------------------
-;; JavaScript
-;;
-
+;; --- JavaScript-lang settings ---
 (use-package js2-mode
     :ensure t
     :config
@@ -716,47 +645,21 @@
                 (flycheck-mode t)
                 (when (executable-find "eslint")
                   (flycheck-select-checker 'javascript-eslint)))))
-
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-;;
-;; /JavaScript
-;; --------------------------------------------------------------------------------
 
-
-;; --------------------------------------------------------------------------------
-;; Lua
-;;
-
+;; --- Lua-lang settings ---
 (use-package lua-mode
     :mode "\\.lua\\'"
     :config (setq lua-indent-level 4))
 
-;;
-;; /Lua
-;; --------------------------------------------------------------------------------
-
-
-;; --------------------------------------------------------------------------------
-;; Python
-;;
-
+;; --- Python-lang settings ---
 (use-package pyenv-mode
     :ensure t)
 
-;;
-;; /Python
-;; --------------------------------------------------------------------------------
-
-
-;; --------------------------------------------------------------------------------
-;; Scala
-;;
-
-;; Enable scala-mode for highlighting, indentation and motion commands
+;; --- Scala-lang settings ---
 (use-package scala-mode
     :interpreter
   ("scala" . scala-mode))
-
 ;; Enable sbt mode for executing sbt commands
 (use-package sbt-mode
     :commands sbt-start sbt-command
@@ -768,13 +671,10 @@
      'self-insert-command
      minibuffer-local-completion-map)
     ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
-    (setq sbt:program-options '("-Dsbt.supershell=false"))
-    )
-
+    (setq sbt:program-options '("-Dsbt.supershell=false")))
 ;; Enable nice rendering of diagnostics like compile errors.
 (use-package flycheck
     :init (global-flycheck-mode))
-
 (use-package lsp-mode
     ;; Optional - enable lsp-mode automatically in scala files
     :hook  (scala-mode . lsp)
@@ -788,17 +688,14 @@
     ;;       (setq lsp-log-io nil)
     ;;       (setq lsp-completion-provider :capf)
     (setq lsp-prefer-flymake nil))
-
 ;; Add metals backend for lsp-mode
 (use-package lsp-metals)
-
 ;; Enable nice rendering of documentation on hover
 ;;   Warning: on some systems this package can reduce your emacs responsiveness significally.
 ;;   (See: https://emacs-lsp.github.io/lsp-mode/page/performance/)
 ;;   In that case you have to not only disable this but also remove from the packages since
 ;;   lsp-mode can activate it automatically.
 (use-package lsp-ui)
-
 ;; Use company-capf as a completion provider.
 ;;
 ;; To Company-lsp users:
@@ -808,7 +705,6 @@
     :hook (scala-mode . company-mode)
     :config
     (setq lsp-completion-provider :capf))
-
 ;; Use the Debug Adapter Protocol for running tests and debugging
 (use-package posframe
     ;; Posframe is a pop-up tool that must be manually installed for dap-mode
@@ -817,11 +713,3 @@
     :hook
   (lsp-mode . dap-mode)
   (lsp-mode . dap-ui-mode))
-
-;;
-;; /Scala
-;; --------------------------------------------------------------------------------
-
-;; ================================================================================
-;; /Languages
-;; ================================================================================
